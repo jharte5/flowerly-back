@@ -10,7 +10,7 @@ const cors = require('cors')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users/users');
 
-require('dotenv').config
+require('dotenv').config()
 
 mongoose.connect(process.env.MONGO_DB, {
   useNewUrlParser: true,

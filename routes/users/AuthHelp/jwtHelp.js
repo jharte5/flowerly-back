@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const expressJwt = require('express-jwt');
 const User = require('../model/User')
 const config = require('./jwtConfig');
+// expressJwt({ secret:  'fashionJWT_SECRET', algorithms: ['HS256'] });
 
 async function comparePassword(incomingPassword, userPassword) {
     try{
@@ -35,6 +36,7 @@ function createJwtToken(user) {
 let checkAuthMiddleware = expressJwt({
     secret: process.env.JWT_USER_SECRET_KEY || config["JWT_USER_SECRET_KEY"],
     userProperty: "auth",
+    algorithms: ['HS256']
 });
 const findUserIfUserExist = async (req, res, next) => {
     const { _id } = req.auth;
@@ -76,7 +78,8 @@ const customJWTVerify = (req, res, next) => {
 };
 let checkRefreshTokenMiddleware = expressJwt({
     secret: process.env.JWT_USER_REFRESH_SECRET_KEY || config['JWT_USER_REFRESH_SECRET_KEY'],
-    userProperty: 'auth'
+    userProperty: 'auth',
+    algorithms: ['HS256']
 });
 module.exports = {
     comparePassword,
